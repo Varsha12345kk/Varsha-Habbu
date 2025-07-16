@@ -9,7 +9,6 @@ body, html {
   font-family: Arial, sans-serif;
 }
 
-/* Full-screen background image */
 body {
   background: url('https://img.freepik.com/premium-vector/dynamic-abstract-geometric-background-design-template-business-company_1025151-1245.jpg') no-repeat center center fixed;
   background-size: cover;
@@ -18,7 +17,6 @@ body {
   align-items: center;
 }
 
-/* White box in center */
 .container {
   display: flex;
   justify-content: center;
@@ -41,7 +39,6 @@ body {
   color: #333;
 }
 
-/* Button block on home page */
 .buttons button {
   margin: 10px;
   padding: 12px 30px;
@@ -58,7 +55,6 @@ body {
   background-color: #084baf;
 }
 
-/* Form inputs and button */
 .form-group {
   display: flex;
   flex-direction: column;
@@ -73,7 +69,6 @@ input {
   font-size: 16px;
 }
 
-/* Common button style */
 button {
   padding: 12px;
   font-size: 16px;
@@ -88,7 +83,6 @@ button:hover {
   background-color: #084baf;
 }
 
-/* Back to home link */
 a {
   text-decoration: none;
   color: purple;
