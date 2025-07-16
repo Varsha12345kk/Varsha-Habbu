@@ -34,13 +34,12 @@
       const password = document.getElementById('password').value.trim();
 
       let isValid = true;
-      // Clear previous errors
+      
       document.getElementById('nameError').textContent = '';
       document.getElementById('emailError').textContent = '';
       document.getElementById('passwordError').textContent = '';
       document.getElementById('msg').textContent = '';
 
-      // Validate inputs
       if (!name || name.length < 3) {
         document.getElementById('nameError').textContent = 'Name must be at least 3 characters.';
         isValid = false;
