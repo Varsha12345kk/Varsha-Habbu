@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<head>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <div class="card">
+      <h2>Create your account</h2>
+      <div class="form-group">
+        <input type="text" id="name" placeholder="Name" />
+        <span class="error" id="nameError"></span>
+
+        <input type="email" id="email" placeholder="Email" />
+        <span class="error" id="emailError"></span>
+
+        <input type="password" id="password" placeholder="Password" />
+        <span class="error" id="passwordError"></span>
+
+        <button onclick="register()">Register</button>
+      </div>
+      <p id="msg"></p>
+      <p><a href="index.html">Back to Home Page</a></p>
+    </div>
+  </div>
+
+  <script>
+    function validateEmail(email) {
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    }
+
+    async function register() {
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value.trim();
+
+      let isValid = true;
+      // Clear previous errors
+      document.getElementById('nameError').textContent = '';
+      document.getElementById('emailError').textContent = '';
+      document.getElementById('passwordError').textContent = '';
+      document.getElementById('msg').textContent = '';
+
+      // Validate inputs
+      if (!name || name.length < 3) {
+        document.getElementById('nameError').textContent = 'Name must be at least 3 characters.';
+        isValid = false;
+      }
+
+      if (!validateEmail(email)) {
+        document.getElementById('emailError').textContent = 'Enter a valid email address.';
+        isValid = false;
+      }
+
+      if (!password || password.length < 6) {
+        document.getElementById('passwordError').textContent = 'Password must be at least 6 characters.';
+        isValid = false;
+      }
+
+      if (!isValid) return;
+
+      const res = await fetch('/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, password })
+      });
+
+      const data = await res.json();
+      document.getElementById('msg').textContent = data.message || data.error;
+    }
+  </script>
+</body>
+</html>

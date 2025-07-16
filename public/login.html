@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<head>
+  <title>Login</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <div class="card">
+      <h2>Login to your account</h2>
+      <div class="form-group">
+        <input type="email" id="email" placeholder="Email" />
+        <span class="error" id="emailError"></span>
+
+        <input type="password" id="password" placeholder="Password" />
+        <span class="error" id="passwordError"></span>
+
+        <button onclick="login()">Login</button>
+      </div>
+      <p id="msg"></p>
+      <p><a href="index.html">Back to Home Page</a></p>
+    </div>
+  </div>
+
+  <script>
+    function validateEmail(email) {
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    }
+
+    async function login() {
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value.trim();
+
+      let isValid = true;
+      // Clear previous errors
+      document.getElementById('emailError').textContent = '';
+      document.getElementById('passwordError').textContent = '';
+      document.getElementById('msg').textContent = '';
+
+      if (!validateEmail(email)) {
+        document.getElementById('emailError').textContent = 'Enter a valid email.';
+        isValid = false;
+      }
+
+      if (!password || password.length < 6) {
+        document.getElementById('passwordError').textContent = 'Password must be at least 6 characters.';
+        isValid = false;
+      }
+
+      if (!isValid) return;
+
+      const res = await fetch('/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password })
+      });
+
+      const data = await res.json();
+      document.getElementById('msg').textContent = data.message || data.error;
+    }
+  </script>
+</body>
+</html>
